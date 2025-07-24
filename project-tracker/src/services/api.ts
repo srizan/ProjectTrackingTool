@@ -10,10 +10,7 @@ export const getProject = async (id: string) => {
 
 export const createProject = async (project: any) => {
  return fetchWithBaseUrl('/api/Projects', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    method: 'POST',   
     body: JSON.stringify(project),
   });
 };
@@ -21,9 +18,12 @@ export const createProject = async (project: any) => {
 export const updateProject = async (id: string, project: any) => {
  return fetchWithBaseUrl(`/api/Projects/${id}`, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',    
-    },
     body: JSON.stringify(project),
-    });
+});
+};
+
+export const deleteProject = async (id: string) => {
+  return fetchWithBaseUrl(`/api/Projects/${id}`, {
+    method: 'DELETE',
+  });
 };
