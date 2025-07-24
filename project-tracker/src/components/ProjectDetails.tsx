@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getProject, updateProject } from '../services/api';
+import { getProject, updateProject, deleteProject } from '../services/api';
 
 interface Project {
   id: string;
@@ -29,8 +29,15 @@ const ProjectDetails: React.FC = () => {
     const fetchProject = async () => {
       if (id) {
         const data = await getProject(id);
-        setProject(data);
-        setFormData(data);
+        
+        const formattedData = {
+          ...data,
+          startDate: data.startDate ? new Date(data.startDate).toISOString().split('T')[0] : '',
+          endDate: data.endDate ? new Date(data.endDate).toISOString().split('T')[0] : '',
+        };
+        
+        setProject(formattedData);
+        setFormData(formattedData);
       }
     };
     fetchProject();
@@ -43,16 +50,28 @@ const ProjectDetails: React.FC = () => {
 
   const handleSave = async () => {
     if (project && formData) {
-      await updateProject(project.id, formData);
+
+        const updatedData = {
+        ...formData,
+        startDate: formData.startDate ? new Date(formData.startDate).toISOString() : '',
+        endDate: formData.endDate ? new Date(formData.endDate).toISOString() : '',
+      };
+
+      await updateProject(project.id, updatedData);
       setIsEditing(false);
-      setProject(formData); // Update the displayed project
+      setProject(updatedData); // Update the displayed project
     }
   };
 
   const handleDelete = async () => {
     if (project && window.confirm('Are you sure you want to delete this project?')) {
-      // Implement delete API call here if needed
+      try {
+      await deleteProject(project.id);
       navigate('/');
+    } catch (error) {
+        console.error('Failed to delete project:', error);
+        alert('Failed to delete project. Please try again later.');
+    }
     }
   };
 
@@ -121,8 +140,8 @@ const ProjectDetails: React.FC = () => {
           <p><strong>Name:</strong> {project.name}</p>
           <p><strong>Owner:</strong> {project.owner}</p>
           <p><strong>Status:</strong> {project.status}</p>
-          <p><strong>Start Date:</strong> {project.startDate}</p>
-          <p><strong>End Date:</strong> {project.endDate}</p>
+          <p><strong>Start Date:</strong> {new Date(project.startDate).toLocaleDateString()}</p>
+          <p><strong>End Date:</strong> {new Date(project.endDate).toLocaleDateString()}</p>
           <div className="space-x-2">
             <button
               className="bg-blue-500 text-blue p-2"
