@@ -35,11 +35,12 @@ const AddProject: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Add New Project</h1>
+      <h3 className="text-2xl font-bold mb-4">Add New Project</h3>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           className="border p-2 w-full"
           name="name"
+          maxLength={100}
           value={formData.name}
           onChange={handleInputChange}
           placeholder="Project Name"
@@ -47,11 +48,11 @@ const AddProject: React.FC = () => {
         />
          <input
           className="border p-2 w-full"
+          maxLength={500}
           name="description"
           value={formData.description}
           onChange={handleInputChange}
-          placeholder="Project Description"
-          required
+          placeholder="Project Description"          
         />
         <input
           className="border p-2 w-full"

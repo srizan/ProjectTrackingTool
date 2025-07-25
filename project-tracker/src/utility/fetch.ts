@@ -19,7 +19,7 @@ export const fetchWithBaseUrl = async <T>(
 
   if (!response.ok) {
     const errorText = await response.text(); // Capture response body for errors
-    throw new Error(`Fetch failed: ${response.status} - ${response.statusText} - ${errorText || 'No details'}`);
+    return {errorText} as T;//throw new Error(`Fetch failed: ${response.status} - ${response.statusText} - ${errorText || 'No details'}`);
   }
 
   // Handle cases where the response might be empty (e.g., 204 No Content)

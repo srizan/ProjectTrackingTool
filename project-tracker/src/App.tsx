@@ -11,12 +11,7 @@ function App() {
   return (
    
     <Router>
-      <div className="App">
-        <header className="App-header">
-          <h1>Project Tracker</h1>
-        </header>
-        </div>
-      <div className="App">
+       <div className="App">
         <Routes>
         <Route path="/" element={<ProjectList />} />
         <Route path="/project/:id" element={<ProjectDetails />} />

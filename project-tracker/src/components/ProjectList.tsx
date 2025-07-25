@@ -26,7 +26,7 @@ const ProjectList = () => {
 
     return (
        <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Projects</h1>
+      <h3 className="text-2xl font-bold mb-4">Projects</h3>
       <div className="mb-4">
         <input
           className="border p-2 mr-2"
@@ -58,7 +58,7 @@ const ProjectList = () => {
               <th className="py-2 px-4 text-left text-gray-600 font-semibold">Name</th>
               <th className="py-2 px-4 text-left text-gray-600 font-semibold">Owner</th>
               <th className="py-2 px-4 text-left text-gray-600 font-semibold">Status</th>
-              <th className="py-2 px-4 text-left text-gray-600 font-semibold">Actions</th>
+            
             </tr>
           </thead>
           <tbody>
@@ -86,14 +86,7 @@ const ProjectList = () => {
                     {project.status}
                   </span>
                 </td>
-                <td className="py-2 px-4">
-                  <a
-                    href={`/project/${project.id}`}
-                    className="text-indigo-500 hover:underline mr-2"
-                  >
-                    View
-                  </a>
-                </td>
+                
               </tr>
             ))}
           </tbody>
